@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from 'react';
 
-function Square({ value, onSquareClick, highlight }) {
+function Square({value, onSquareClick, highlight}) {
   return (
     <button className={highlight ? "square highlight" : "square"} onClick={onSquareClick}>
       {value}
@@ -8,18 +8,28 @@ function Square({ value, onSquareClick, highlight }) {
   );
 }
 
-function Board({ xIsNext, squares, onPlay }) {
+function Board({ xIsNext, squares, locationList, onPlay }) {
   function handleClick(i) {
     if (calculateWinner(squares).winner || squares[i]) {
       return;
     }
+
     const nextSquares = squares.slice();
     if (xIsNext) {
       nextSquares[i] = 'X';
     } else {
       nextSquares[i] = 'O';
     }
-    onPlay(nextSquares);
+
+    if (i < 3) {
+      locationList.push(' (row: ' + 1 + ', col: ' + (i + 1) + ')');
+    } else if (i >= 3 && i < 6) {
+      locationList.push(' (row: ' + 2 + ', col: ' + (i - 2) + ')');
+    } else {
+      locationList.push(' (row: ' + 3 + ', col: ' + (i - 5) + ')');
+    }
+
+    onPlay(nextSquares, locationList, i);
   }
 
   const winner = calculateWinner(squares).winner;
@@ -67,14 +77,16 @@ export default function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
   const [sortAsc, setSortAsc] = useState(true);
+  const [locationList, setLocationList] = useState([]);
 
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
-
-  function handlePlay(nextSquares) {
+  
+  function handlePlay(nextSquares, locationList, idx) {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
+    setLocationList(locationList);
   }
 
   function jumpTo(nextMove) {
@@ -88,18 +100,18 @@ export default function Game() {
   const moves = history.map((squares, move) => {
     let description;
     if (move > 0) {
-      description = (move === currentMove ? 'You are on ' : 'Go to ') + 'move #' + move;
+      description = (move === currentMove ? 'You are on ' : 'Go to ') + 'move #' + move + locationList[move - 1];
     } else {
-      description = (move === currentMove ? 'You are at game start' : 'Go to game start');
+      description = (move === currentMove ? 'You are on game start' : 'Go to game start');
     }
 
     return (
-      <li key={move}>
+      <li key={move}> 
         {
           move === currentMove ? (
             description
           ) : (
-            <button onClick={() => { jumpTo(move) }}>{description}</button>
+            <button onClick={() => {jumpTo(move)}}>{description}</button>
           )
         }
       </li>
@@ -109,7 +121,7 @@ export default function Game() {
   return (
     <div className="game">
       <div className="game-board">
-        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+        <Board xIsNext={xIsNext} squares={currentSquares} locationList={locationList} onPlay={handlePlay} />
       </div>
       <div className="game-info">
         <button className='sort-button' onClick={handleSort}>{sortAsc ? 'Sort descending' : 'Sort ascending' }</button>
