@@ -18,3 +18,15 @@ To use:
 - Clone or download code
 - Run 'npm install' inside local repo to install dependencies
 - Run 'npm start' to serve to browser
+
+Starting point</br>
+![alt text](https://github.com/nataliaCodes/react-tic-tac-toe/blob/main/public/1-game-start.png?raw=true)
+
+During play</br>
+![alt text](https://github.com/nataliaCodes/react-tic-tac-toe/blob/main/public/2-in-play.png?raw=true)
+
+Game won</br>
+![alt text](https://github.com/nataliaCodes/react-tic-tac-toe/blob/main/public/3-winner.png?raw=true)
+
+Game draw</br>
+![alt text](https://github.com/nataliaCodes/react-tic-tac-toe/blob/main/public/4-draw.png?raw=true)
