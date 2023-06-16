@@ -19,14 +19,14 @@ To use:
 - Run 'npm install' inside local repo to install dependencies
 - Run 'npm start' to serve to browser
 
-Starting point
+Starting point</br>
 ![alt text](https://github.com/nataliaCodes/react-tic-tac-toe/blob/main/public/1-game-start.png?raw=true)
 
-During play
+During play</br>
 ![alt text](https://github.com/nataliaCodes/react-tic-tac-toe/blob/main/public/2-in-play.png?raw=true)
 
-Game won
+Game won</br>
 ![alt text](https://github.com/nataliaCodes/react-tic-tac-toe/blob/main/public/3-winner.png?raw=true)
 
-Game draw
+Game draw</br>
 ![alt text](https://github.com/nataliaCodes/react-tic-tac-toe/blob/main/public/4-draw.png?raw=true)
