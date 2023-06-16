@@ -179,6 +179,11 @@ span.title {
     border-color: transparent;
     color: #001F54;
     cursor: pointer;
+
+    &:disabled {
+      opacity: 50%;
+      cursor: default;
+    }
   }
 
   .list-text {
