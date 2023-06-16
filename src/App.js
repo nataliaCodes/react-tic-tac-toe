@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from 'react';
 
-function Square({value, onSquareClick, highlight}) {
+function Square({ value, onSquareClick, highlight }) {
   return (
     <button className={highlight ? "square highlight" : "square"} onClick={onSquareClick}>
       {value}
@@ -47,13 +47,13 @@ function Board({ xIsNext, squares, locationList, onPlay }) {
   let groupedSquares = [];
   let row = [];
   let squareNumber = 1;
-  for (let i=0; i < squares.length; i++) {
+  for (let i = 0; i < squares.length; i++) {
     row.push(
-      <Square 
+      <Square
         key={i}
         highlight={winningLine && winningLine.includes(i)}
-        value={squares[i]} 
-        onSquareClick={() => handleClick(i)} 
+        value={squares[i]}
+        onSquareClick={() => handleClick(i)}
       />
     );
     squareNumber++;
@@ -81,7 +81,7 @@ export default function Game() {
 
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
-  
+
   function handlePlay(nextSquares, locationList, idx) {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
     setHistory(nextHistory);
@@ -106,12 +106,12 @@ export default function Game() {
     }
 
     return (
-      <li key={move}> 
+      <li key={move}>
         {
           move === currentMove ? (
-            description
+            <span className='list-text'>{description}</span>
           ) : (
-            <button onClick={() => {jumpTo(move)}}>{description}</button>
+            <button className='list-button' onClick={() => { jumpTo(move) }}>{description}</button>
           )
         }
       </li>
@@ -120,12 +120,19 @@ export default function Game() {
 
   return (
     <div className="game">
+      <h1>
+        <span className='title'>Tic</span>
+        <span className='title dash'>-</span>
+        <span className='title'>tac</span>
+        <span className='title dash'>-</span>
+        <span className='title'>toe</span>
+      </h1>
       <div className="game-board">
         <Board xIsNext={xIsNext} squares={currentSquares} locationList={locationList} onPlay={handlePlay} />
       </div>
       <div className="game-info">
-        <button className='sort-button' onClick={handleSort}>{sortAsc ? 'Sort descending' : 'Sort ascending' }</button>
-        <ol>{sortAsc ? moves : moves.reverse()}</ol>
+        <button className='sort-button' disabled={currentMove === 0 && !locationList.length} onClick={handleSort}>{sortAsc ? 'Sort descending' : 'Sort ascending'}</button>
+        <ul>{sortAsc ? moves : moves.reverse()}</ul>
       </div>
     </div>
   );

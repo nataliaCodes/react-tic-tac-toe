@@ -1,4 +1,5 @@
 Provides solutions to React tutorial for tic-tac-toe game extra requirements.
+Also added a personal touch to the design.
 
 Starting point:
 - Lets you play tic-tac-toe,
